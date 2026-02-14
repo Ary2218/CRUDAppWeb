@@ -6,10 +6,6 @@ const path = './data/usuarios.json';
 const leerJSON = () => JSON.parse(fs.readFileSync(path, 'utf-8'))
 
 
-router.get('/', (req, res) => {
-    res.send("<h1>Página de Login</h1><p>Envía un POST a esta ruta para iniciar sesión.</p>");
-});
-
 router.post('/',(req,res) => {
     const {username, password} = req.body
     const usuarios = leerJSON();
@@ -20,11 +16,11 @@ router.post('/',(req,res) => {
         return res.status(401).send("Nombre de usuario o contraseña incorrectos");
     }
 
-    if (usuario.role == "admin") {
-        res.redirect(`usuario/${usuario.id}/admin`); 
+    if (usuario.rol == "admin") {
+        res.redirect(`/usuarios/${usuario.id}/admin`); 
         }
         else {
-            res.redirect(`usuario/${usuario.id}`);
+            res.redirect(`/usuarios/${usuario.id}`);
         }
 });
 
